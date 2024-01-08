@@ -91,7 +91,6 @@ export class App extends Component {
                       footer={null}
                       centered={true}
                       closable={false}
-                  
                     >
                       <img
                         src={e.largeImageURL}

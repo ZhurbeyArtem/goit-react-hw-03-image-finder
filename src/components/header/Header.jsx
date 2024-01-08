@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { HeaderStyle } from './Header.style';
 import { Form, SearchbarWrapper, Searchbar, SearchButton } from './Searchbar';
-import {SearchOutlined} from '@ant-design/icons'
+import { SearchOutlined } from '@ant-design/icons';
 
 class Header extends Component {
   constructor(props) {

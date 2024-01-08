@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const ImageGalleryItem = styled.li`
-  width: calc((100% - 30px ) / 4);
+  width: calc((100% - 30px) / 4);
   height: 250px;
 `;
 
 export const ImageItem = styled.img`
-width: 100%;
-height: 100%;
-`
+  width: 100%;
+  height: 100%;
+`;

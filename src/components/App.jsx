@@ -1,12 +1,10 @@
 import { Component } from 'react';
-import { Blocks } from 'react-loader-spinner';
 
-import { ImageGallery } from './ImageGallery';
-import { ImageGalleryItem, ImageItem } from './ImageGalleryItem';
 import Header from './header/Header';
 import { getImages } from 'api/api';
-import { Btn } from './Button';
-import { Modal } from 'antd';
+import { Btn } from './Button.style';
+import { Loader } from './Loader';
+import { ImageGallery } from './gallery/ImageGallery';
 export class App extends Component {
   state = {
     images: [],
@@ -15,6 +13,7 @@ export class App extends Component {
     totalPages: 1,
     isLoad: false,
     openModals: {},
+    showBtn: false,
   };
 
   getData = async () => {
@@ -25,11 +24,16 @@ export class App extends Component {
       if (data) {
         this.setState(prevState => ({
           images: [...prevState.images, ...data.hits],
-          totalPages: Math.ceil(data.total / 12),
+          totalPages: Math.ceil(data.totalHits / 12),
           isLoad: false,
+          showBtn: page < Math.ceil(data.totalHits / 12) ? true : false,
         }));
       }
     } catch (e) {
+      this.setState(prevState => ({
+        isLoad: false,
+        showBtn: false,
+      }));
       alert(e);
     }
   };
@@ -51,14 +55,6 @@ export class App extends Component {
     }
   }
 
-  renderBtn = () => {
-    const { totalPages, page } = this.state;
-    if (totalPages > 1) {
-      if (totalPages !== page) {
-        return <Btn onClick={this.updatePage}>Load more</Btn>;
-      }
-    }
-  };
   toggleModal = id => {
     this.setState(prevState => ({
       openModals: {
@@ -69,50 +65,20 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoad, openModals } = this.state;
+    const { images, isLoad, openModals, showBtn } = this.state;
+
     return (
       <div>
         <Header findImages={this.findImages} />
         {!isLoad ? (
           <>
-            <ImageGallery>
-              {images &&
-                images.map(e => (
-                  <ImageGalleryItem key={e.id}>
-                    <ImageItem
-                      src={e.webformatURL}
-                      alt={e.tags}
-                      onClick={() => this.toggleModal(e.id)}
-                    />
-                    <Modal
-                      width="1200px"
-                      open={openModals[e.id]}
-                      onCancel={() => this.toggleModal(e.id)}
-                      footer={null}
-                      centered={true}
-                      closable={false}
-                    >
-                      <img
-                        src={e.largeImageURL}
-                        style={{ maxWidth: '100%', width: '100%' }}
-                        alt={e.tags}
-                      ></img>
-                    </Modal>
-                  </ImageGalleryItem>
-                ))}
-            </ImageGallery>
-            {this.renderBtn()}
+            {images.length > 0 && (
+              <ImageGallery images={images} openModals={openModals} />
+            )}
+            {showBtn && <Btn onClick={this.updatePage}>Load more</Btn>}
           </>
         ) : (
-          <Blocks
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{ margin: '40vh auto', display: 'block' }}
-            wrapperClass="blocks-wrapper"
-            visible={true}
-          />
+          <Loader />
         )}
       </div>
     );

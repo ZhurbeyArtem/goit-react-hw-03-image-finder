@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { HeaderStyle } from './Header.style';
-import { Form, SearchbarWrapper, Searchbar, SearchButton } from './Searchbar';
+import { Form, SearchbarWrapper, Searchbar, SearchButton } from './Searchbar.style';
 import { SearchOutlined } from '@ant-design/icons';
 
 class Header extends Component {

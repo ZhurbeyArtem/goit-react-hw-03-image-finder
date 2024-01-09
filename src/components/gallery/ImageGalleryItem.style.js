@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ImageGalleryItem = styled.li`
+export const ImageGalleryItemStyle = styled.li`
   width: calc((100% - 30px) / 4);
   height: 250px;
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ImageGallery = styled.ul`
+export const ImageGalleryStyle = styled.ul`
   width: 100%;
   display: flex;
   gap: 10px;

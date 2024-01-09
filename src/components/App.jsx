@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Header from './header/Header';
 import { getImages } from 'api/api';
 import { Btn } from './Button.style';
-import { Loader } from './Loader';
+import { Loader } from './loader/Loader';
 import { ImageGallery } from './gallery/ImageGallery';
 export class App extends Component {
   state = {
@@ -70,16 +70,13 @@ export class App extends Component {
     return (
       <div>
         <Header findImages={this.findImages} />
-        {!isLoad ? (
-          <>
-            {images.length > 0 && (
-              <ImageGallery images={images} openModals={openModals} />
-            )}
-            {showBtn && <Btn onClick={this.updatePage}>Load more</Btn>}
-          </>
-        ) : (
-          <Loader />
-        )}
+        <>
+          {images.length > 0 && (
+            <ImageGallery images={images} openModals={openModals} />
+          )}
+          {showBtn && <Btn onClick={this.updatePage}>Load more</Btn>}
+        </>
+        {isLoad && <Loader />}
       </div>
     );
   }

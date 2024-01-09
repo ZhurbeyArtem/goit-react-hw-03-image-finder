@@ -1,5 +1,6 @@
 import React from 'react'
 import { Blocks } from 'react-loader-spinner';
+import s from './style.module.css'
 
 export const Loader = () => {
   return (
@@ -8,8 +9,7 @@ export const Loader = () => {
       width="80"
       color="#4fa94d"
       ariaLabel="blocks-loading"
-      wrapperStyle={{ margin: '40vh auto', display: 'block' }}
-      wrapperClass="blocks-wrapper"
+      wrapperClass={s.loader}
       visible={true}
     />
   );
